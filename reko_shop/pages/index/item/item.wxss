@@ -1,0 +1,83 @@
+.page-section-title{
+  padding: 0;
+}
+.swiper-item{
+  display:block;
+
+}
+.page-section-title{
+  margin-top: 30rpx;
+  position: relative;
+}
+.info{
+  position: absolute;
+  right: 0;
+  color: #353535;
+  font-size: 30rpx;
+}
+.page-foot{
+  margin-top: 50rpx;
+}
+
+.bottom-bar{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.flex-wrp{
+  margin-top: 60rpx;
+  width: 100%;
+  display:flex;
+}
+.flex-item{
+  width: 320rpx;
+  height: 100rpx;
+  font-size: 26rpx;
+}
+
+.demo-text-1{
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: #1AAD19;
+  color: #FFFFFF;
+  font-size: 28rpx;
+}
+.demo-text-1:before{
+  content: '新添菜品';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.demo-text-2{
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: #2782D7;
+  color: #FFFFFF;
+  font-size: 28rpx;
+}
+.demo-text-2:before{
+  content: '更新菜品';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.demo-text-3{
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: #F1F1F1;
+  color: #353535;
+  font-size: 28rpx;
+}
+.demo-text-3:before{
+  content: '移除菜品';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

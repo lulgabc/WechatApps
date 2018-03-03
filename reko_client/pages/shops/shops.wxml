@@ -1,0 +1,12 @@
+<view class="index-bd">
+  <view class="kind-list">
+    <block wx:for-items="{{shopList}}" wx:key="{{item.id}}">
+      <view class="kind-list-item">
+        <view id="{{item.openid}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="shopPage">
+          <view class="kind-list-text">{{item.name}}</view>
+          <image class="kind-list-img" src="{{item.avatar}}"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

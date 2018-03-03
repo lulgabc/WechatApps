@@ -1,0 +1,54 @@
+<view class="container">
+
+  <view class="page-body">
+    <form catchsubmit="formSubmit" catchreset="formReset">
+
+      <view class="page-section">
+        <view class="page-section-title">名称</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="name" placeholder="宫保鸡丁" />
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="page-section">
+        <view class="page-section-title">配料</view>
+        <input class="weui-input" name="recipe" placeholder="..." />
+      </view>
+
+      <view class="page-section">
+        <view class="page-section-title">价格</view>
+        <input class="weui-input" type='number' name="price" placeholder="0.0 欧元" />
+      </view>
+
+      <view class="page-section">
+        <view class="page-section-title">介绍</view>
+        <input class="weui-input" name="description" placeholder="..." />
+      </view>
+
+      <view class="page-section page-section-gap">
+        <view class="page-section-title">可见</view>
+        <switch name="available" checked='true' />
+      </view>
+
+      <view class="page-section page-section-gap">
+        <view class="page-section-title">促销中</view>
+        <switch name="promo" />
+      </view>
+
+      <view class="page-section">
+        <view class="page-section-title">促销价格</view>
+        <input class="weui-input" type='number' name="promoprice" placeholder="0.0 欧元" />
+      </view>
+
+
+      <view class="btn-area">
+        <button type="primary" formType="submit">提交</button>
+        <button formType="reset">清除</button>
+      </view>
+    </form>
+  </view>
+</view>

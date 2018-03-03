@@ -1,0 +1,25 @@
+<!--item.wxml-->
+<view class="">
+  <view class="page-section">
+    <view class="page-section-title">
+      <text>{{item.name}}</text>
+    </view>
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{true}}" autoplay="{{false}}" interval="{{2000}}" duration="{{500}}">
+        <block wx:for="{{item.photo}}" wx:key="*this">
+          <swiper-item>
+            <image class="" src="{{item}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+
+</view>
+<view class='bottom-bar'>
+  <view class="flex-wrp" style="flex-direction:row;">
+    <view class='flex-item demo-text-1' bindtap='create'></view>
+    <view class='flex-item demo-text-2' bindtap='modify'></view>
+    <view class='flex-item demo-text-3' bindtap='remove'></view>
+  </view>
+</view>

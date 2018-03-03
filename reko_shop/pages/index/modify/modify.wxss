@@ -1,0 +1,12 @@
+label {
+  display: inline-block;
+  min-width: 270rpx;
+  margin-right: 20rpx;
+}
+form{
+  width: 90%;
+}
+.picker-text {
+  margin-left: 20rpx;
+  position: relative;
+}

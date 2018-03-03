@@ -1,0 +1,38 @@
+<view class="index-bd">
+  <view class="index-hd">
+    <image class="index-logo" src="{{shop.avatar}}"></image>
+    <view class="index-desc">{{shop.name}}</view>
+  </view>
+
+  <block wx:for-items="{{items}}" wx:key="{{items.name}}">
+    <button id="{{item.name}}" class="mini-btn" type="normal" size="mini" bindtap='remove'>{{item.name}}</button>
+  </block>
+
+  <view class="kind-list">
+    <block wx:for-items="{{shop.item}}" wx:key="{{shop.item.name}}">
+      <view wx:if="{{item.available}}" class="kind-list-item">
+        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="detail">
+          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
+          <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
+        </view>
+
+        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+            <view class="navigator-text">成分：{{item.recipe}}</view>
+            <view class="navigator-text">介绍：{{item.description}}</view>
+            <button id="{{item.name}}" class="mini-btn" type="primary" size="mini" bindtap='add'>加入</button>
+            <button id="{{item.name}}" class="mini-btn" type="warn" size="mini" bindtap='remove'>去除</button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view class='bottom-bar'>
+  <view class="flex-wrp" style="flex-direction:row;">
+    <view class='flex-item demo-text-1' bindtap=''> {{count}} 个</view>
+    <view class='flex-item demo-text-2' bindtap=''>{{amount}} 欧</view>
+    <view class='flex-item demo-text-3' bindtap='order'></view>
+  </view>
+</view>

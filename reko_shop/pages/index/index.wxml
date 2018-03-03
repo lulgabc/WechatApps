@@ -1,0 +1,43 @@
+<view class="index-bd">
+  <view class="index-hd">
+    <image class="index-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT3voDJAlUDoDfw1oqyU5cc8ujIphWGBU68z3R0-_32VrXre0G"></image>
+    <view class="index-desc">南京人家美食小店</view>
+  </view>
+  <view class="kind-list">
+    <block wx:for-items="{{itemList}}" wx:key="{{item.name}}">
+      <view  wx:if="{{item.available}}"class="kind-list-item">
+        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
+          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
+         
+            <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
+
+        </view>
+        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+            <view class="navigator-text">成分：{{item.recipe}}</view>
+            <view class="navigator-text">介绍：{{item.description}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+<view class="index-desc">下架中</view>
+  <view class="kind-list">
+    <block wx:for-items="{{itemList}}" wx:key="{{item.name}}">
+      <view  wx:if="{{!item.available}}"class="kind-list-item">
+        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
+          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
+         
+            <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
+
+        </view>
+        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+            <view class="navigator-text">成分：{{item.recipe}}</view>
+            <view class="navigator-text">介绍：{{item.description}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

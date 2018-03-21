@@ -1,2 +1,42 @@
-<!--me.wxml-->
-<text>me.wxml</text>
+<import src="/dist/steps/index.wxml" />
+
+<block wx:for-items="{{dateList}}" wx:for-item="date" wx:key="{{date}}">
+  <view class="zan-panel-title zan-font-bold">
+    <view class="zan-icon zan-icon-goods-collect" style="color: #ff4343;"></view>
+    {{date}}
+  </view>
+
+  <block wx:for-items="{{orderByDate[date]}}" wx:for-item="order" wx:key="{{order.id}}">
+    <view id="{{date+ ','+order.id}}" class="zan-panel zan-panel--without-borde" bindtap='showDetail'>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">
+          <view class="zan-cell__text">{{order.shopname}}</view>
+          <view class="zan-cell__desc">{{order.amount}} {{order.currency}}/{{order.count}}样</view>
+        </view>
+        <view class="zan-cell__ft">
+        
+        <button class="zan-btn zan-btn--mini {{order.status==0 ? 'zan-btn--primary' : 'zan-btn--plain'}}">{{status[0]}}</button>
+        <button class="zan-btn zan-btn--mini {{order.status==1 ? 'zan-btn--primary' : 'zan-btn--plain'}}">{{status[1]}}</button>
+        <button class="zan-btn zan-btn--mini {{order.status==2 ? 'zan-btn--primary' : 'zan-btn--plain'}}">{{status[2]}}</button>
+        <button class="zan-btn zan-btn--mini {{order.status==3 ? 'zan-btn--primary' : 'zan-btn--plain'}}">{{status[3]}}</button>
+        </view>
+      </view>
+      <!--<view class="zan-cell">
+        <view class="zan-cell__bd">
+          <template is="zan-steps" data="{{ type: 'horizon', steps: steps }}"></template>
+        </view>
+      </view>-->
+      <!-- 订单详情 -->
+      <view class="kind-list-item-bd {{order.open ? 'kind-list-item-bd-show' : ''}}">
+        <view class="navigator-box {{order.open ? 'navigator-box-show' : ''}}">
+          <view class='zan-font-12 zan-font-bold'>送单时间：{{order.date}} / {{order.time}}</view>
+          <view class='zan-font-12 zan-font-bold'>送单地点：{{order.where}}</view>
+          <view class='zan-font-12 zan-font-bold'>订单内容：</view>
+          <block wx:for-items="{{order.items}}" wx:for-item="dish" wx:key="*item">
+            <view class="zan-font-12 zan-c-gray-dark"> • {{dish.name}} ({{dish.price}} {{order.currency}})</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+</block>

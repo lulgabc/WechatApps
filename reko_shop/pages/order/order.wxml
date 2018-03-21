@@ -1,2 +1,53 @@
-<!--order.wxml-->
-<text>order.wxml</text>
+<block wx:for-items="{{dateList}}" wx:for-item="date" wx:key="{{date}}">
+
+  <view class="zan-panel-title zan-c-red">
+    <view class="zan-icon zan-icon-gift-card-pay " style="color: #ff4343;"></view>
+    {{date}}
+  </view>
+
+  <block wx:for-items="{{orderByDate[date]}}" wx:for-item="order" wx:key="{{order.id}}">
+    <view id="{{date+ ','+order.id}}" class="zan-panel" bindtap='showDetail'>
+      <view class="zan-cell">
+        <view class="zan-cell__bd">
+          <view class="zan-cell__text">{{order.clientname}}</view>
+          <view class="zan-cell__desc">{{order.amount}} {{order.currency}}/{{order.count}}件</view>
+        </view>
+        <view class="zan-cell__ft">
+          <!--<button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" wx:if="{{order.status==0}}">{{status[order.status]}}</button>
+          <button class="zan-btn zan-btn--mini zan-btn--warn" wx:if="{{order.status==1}}">{{status[order.status]}}</button>
+          <button class="zan-btn zan-btn--mini zan-btn--danger" wx:if="{{order.status==2}}">{{status[order.status]}}</button>
+          <button class="zan-btn zan-btn--mini zan-btn--primary" wx:if="{{order.status==3}}">{{status[order.status]}}</button>-->
+          <button class="zan-btn zan-btn--mini {{order.status==4 ? 'zan-btn--warn' : 'zan-btn--plain'}}" wx:if="{{order.status==4}}">{{status[4]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==0 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[0]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==1 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[1]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==2 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[2]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==3 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[3]}}</button>
+        </view>
+      </view>
+      <!-- 订单详情 -->
+      <view class="kind-list-item-bd {{order.open ? 'kind-list-item-bd-show' : ''}}">
+        <view class="navigator-box {{order.open ? 'navigator-box-show' : ''}}">
+          <view class='zan-font-12 zan-font-bold'>送单时间：{{order.date}} / {{order.time}}</view>
+          <view class='zan-font-12 zan-font-bold'>送单地点：{{order.where}}</view>
+          <view class='zan-font-12 zan-font-bold'>订单内容：</view>
+          <block wx:for-items="{{order.items}}" wx:for-item="dish" wx:key="*item">
+            <view class="zan-font-12 zan-c-gray-dark"> • {{dish.name}} ({{dish.price}} {{order.currency}})</view>
+          </block>
+          <view wx:if="{{order.status==0}}">
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='accept'>接受订单</button>
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='refuse'>取消订单</button>
+          </view>
+          <view wx:if="{{order.status==1}}">
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='send'>发送订单</button>
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='wait'>从新等待</button>
+          </view>
+          <view wx:if="{{order.status==2}}">
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='finish'>买家收到</button>
+          </view>
+          <view style='padding: 5px;'></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</block>

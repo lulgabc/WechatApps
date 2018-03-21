@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/shops/shops",
+    "pages/group/group",
     "pages/me/me",
     "pages/logs/logs",
     "pages/shops/shop/shop",
@@ -31,6 +32,12 @@
         "iconPath": "image/icon_API.png",
         "selectedIconPath": "image/icon_API_HL.png",
         "text": "外卖"
+      },
+      {
+        "pagePath": "pages/group/group",
+        "iconPath": "image/icon_API.png",
+        "selectedIconPath": "image/icon_API_HL.png",
+        "text": "跟单"
       },
       {
         "pagePath": "pages/me/me",

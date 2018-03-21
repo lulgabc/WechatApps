@@ -1,12 +1,55 @@
-<view class="index-bd">
-  <view class="kind-list">
-    <block wx:for-items="{{shopList}}" wx:key="{{item.id}}">
-      <view class="kind-list-item">
-        <view id="{{item.openid}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="shopPage">
-          <view class="kind-list-text">{{item.name}}</view>
-          <image class="kind-list-img" src="{{item.avatar}}"></image>
-        </view>
-      </view>
-    </block>
-  </view>
+<view class="zan-panel-title">
+  <view class="zan-icon zan-icon-like" style="color: #ff4343;"></view>
+  收藏店铺
 </view>
+<block wx:for-items="{{likeshop}}" wx:for-item="shop" wx:key="{{shop.openid}}">
+  <view id="{{shop.openid}}" class="zan-panel" bindtap="likeToggle">
+    <view class="zan-cell zan-cell--access">
+      <view class="zan-cell__bd">
+        <view class="zan-cell__text">{{shop.shopname}}</view>
+        <view class="zan-cell__desc">电话：{{shop.phone}}</view>
+      </view>
+      <view class="zan-cell__ft">
+        <image id="{{shop.openid}}" class=".kind-list-img" src="{{shop.avatar}}" mode="aspectFit" bindtap='shopPage'></image>
+      </view>
+    </view>
+
+    <view class="kind-list-item-bd {{shop.show ? 'kind-list-item-bd-show' : ''}}">
+      <view class="navigator-box {{shop.show ? 'navigator-box-show' : ''}}">
+        <view class="zan-font-12"> 本店介绍： {{shop.about}}</view>
+        <view class="zan-font-12"> 送单须知： {{shop.delivery}}</view>
+        <button id="{{shop.openid}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindtap='removeLike'>取消收藏</button>
+        <button id="{{shop.openid}}" class="zan-btn zan-btn--mini zan-btn--primary " bindtap='shopPage'>进店看看</button>
+        <view style='padding: 5px;'></view>
+      </view>
+    </view>
+  </view>
+
+</block>
+
+<view class="zan-panel-title">
+  <view class="zan-icon zan-icon-hot-sale" style="color: #ff4343;"></view>
+  外卖店铺
+</view>
+<block wx:for-items="{{nolikeshop}}" wx:for-item="shop" wx:key="{{shop.openid}}">
+  <view id="{{shop.openid}}" class="zan-panel" bindtap="nolikeToggle">
+    <view class="zan-cell zan-cell--access">
+      <view class="zan-cell__bd">
+        <view class="zan-cell__text">{{shop.shopname}}</view>
+        <view class="zan-cell__desc">电话：{{shop.phone}}</view>
+      </view>
+      <view class="zan-cell__ft">
+        <image id="{{shop.openid}}" class=".kind-list-img" src="{{shop.avatar}}" mode="aspectFit" bindtap='shopPage'></image>
+      </view>
+    </view>
+    <view class="kind-list-item-bd {{shop.show ? 'kind-list-item-bd-show' : ''}}">
+      <view class="navigator-box {{shop.show ? 'navigator-box-show' : ''}}">
+        <view class="zan-font-12"> 本店介绍： {{shop.about}}</view>
+        <view class="zan-font-12"> 送单须知： {{shop.delivery}}</view>
+        <button id="{{shop.openid}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindtap='addLike'>加入收藏</button>
+        <button id="{{shop.openid}}" class="zan-btn zan-btn--mini zan-btn--primary " bindtap='shopPage'>进店看看</button>
+        <view style='padding: 5px;'></view>
+      </view>
+    </view>
+  </view>
+</block>

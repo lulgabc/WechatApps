@@ -1,33 +1,51 @@
-<view class="index-bd">
-  <view class="index-hd">
-    <image class="index-logo" src="{{shop.avatar}}"></image>
-    <view class="index-desc">{{shop.name}}</view>
+<view class="zan-panel">
+  <view class="zan-row">
+    <view class="zan-col zan-col-1"></view>
+    <view class="zan-col zan-col-7">
+      <image class="index-logo" src="{{shop.avatar}}"></image>
+    </view>
+    <view class="zan-col zan-col-16">
+      <view class="index-desc">{{shop.shopname}}</view>
+      <view class="index-desc">订餐电话:{{shop.phone}}</view>
+      <view class="index-desc">{{shop.about}}</view>
+    </view>
   </view>
+  <view class="doc-description">{{shop.delivery}}</view>
+</view>
 
+
+<view class="zan-panel" wx:if="{{items != []}}">
   <block wx:for-items="{{items}}" wx:key="{{items.name}}">
-    <button id="{{item.name}}" class="mini-btn" type="normal" size="mini" bindtap='remove'>{{item.name}}</button>
+    <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary" bindtap='remove'>{{item.name}}</button>
   </block>
 
-  <view class="kind-list">
-    <block wx:for-items="{{shop.item}}" wx:key="{{shop.item.name}}">
-      <view wx:if="{{item.available}}" class="kind-list-item">
-        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="detail">
-          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
-          <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
-        </view>
+</view>
 
-        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
-          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-            <view class="navigator-text">成分：{{item.recipe}}</view>
-            <view class="navigator-text">介绍：{{item.description}}</view>
-            <button id="{{item.name}}" class="mini-btn" type="primary" size="mini" bindtap='add'>加入</button>
-            <button id="{{item.name}}" class="mini-btn" type="warn" size="mini" bindtap='remove'>去除</button>
-          </view>
+<block wx:for-items="{{category}}" wx:for-item="category" wx:key="{{*category}}">
+  <view class="zan-panel-title">{{category}}</view>
+  <block wx:for-items="{{itemsByCategory[category]}}" wx:key="{{itemsByCategory[category].name}}">
+    <!--<view class="zan-panel" wx:if="{{item.available}}">-->
+      <view id="{{category + ',' + item.name}}" class="zan-cell">
+        <view id="{{category + ',' + item.name}}" class="zan-cell__bd" bindtap="detail">
+          {{item.name}}
+          {{item.price +" "+shop.currency}}
+        </view>
+        <view class="zan-cell__ft">
+          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='add'>加入</button>
+          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='remove'>去除</button>
         </view>
       </view>
-    </block>
-  </view>
-</view>
+
+      <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+        <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+          <view class="zan-font-12">成分：{{item.recipe}}</view>
+          <view class="zan-font-12">介绍：{{item.description}}</view>
+          <view style='padding: 5px;'></view>
+        </view>
+      </view>
+    <!--</view>-->
+  </block>
+</block>
 
 <view class='bottom-bar'>
   <view class="flex-wrp" style="flex-direction:row;">

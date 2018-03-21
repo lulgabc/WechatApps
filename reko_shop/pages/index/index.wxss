@@ -1,3 +1,5 @@
+@import "../../dist/index.wxss";
+
 .index-hd {
   padding: 80rpx;
   text-align: center;
@@ -77,7 +79,7 @@
 
 
 .kind-list-item {
-  margin: 20rpx 0;
+  margin: 10rpx 0;
   background-color: #FFFFFF;
   border-radius: 4rpx;
   overflow: hidden;
@@ -94,15 +96,12 @@
   border-radius: 50%;
 }
 .kind-list-item-hd {
-  padding: 30rpx;
+  padding: 5rpx;
   display: flex;
   align-items: center;
-
   transition: opacity .3s;
 }
-.kind-list-item-hd-show {
-  opacity: .2;
-}
+
 .kind-list-item-bd {
   height: 0;
   overflow: hidden;

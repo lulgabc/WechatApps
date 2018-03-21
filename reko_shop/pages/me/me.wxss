@@ -1,1 +1,23 @@
-/* me.wxss */
+@import "../common/weui.wxss";
+
+label {
+  display: inline-block;
+  min-width: 270rpx;
+  margin-right: 20rpx;
+}
+form{
+  width: 90%;
+}
+.picker-text {
+  margin-left: 20rpx;
+  position: relative;
+}
+
+textarea {
+    width: 700rpx;
+    padding: 25rpx 0;
+}
+.textarea-wrp {
+    padding: 0 25rpx;
+    background-color: #fff;
+}

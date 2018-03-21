@@ -1,43 +1,44 @@
-<view class="index-bd">
-  <view class="index-hd">
-    <image class="index-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT3voDJAlUDoDfw1oqyU5cc8ujIphWGBU68z3R0-_32VrXre0G"></image>
-    <view class="index-desc">南京人家美食小店</view>
+<view class="zan-panel">
+  <view class="zan-row">
+    <view class="zan-col zan-col-1"></view>
+    <view class="zan-col zan-col-7">
+      <image class="index-logo" src="{{shopInfo.avatar}}"></image>
+    </view>
+    <view class="zan-col zan-col-16">
+      <view class="index-desc">{{shopInfo.shopname}}</view>
+      <view class="index-desc">订餐电话:{{shopInfo.phone}}</view>
+      <view class="index-desc">{{shopInfo.about}}</view>
+    </view>
   </view>
-  <view class="kind-list">
-    <block wx:for-items="{{itemList}}" wx:key="{{item.name}}">
-      <view  wx:if="{{item.available}}"class="kind-list-item">
-        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
-          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
-         
-            <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
-
-        </view>
-        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
-          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-            <view class="navigator-text">成分：{{item.recipe}}</view>
-            <view class="navigator-text">介绍：{{item.description}}</view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view>
-<view class="index-desc">下架中</view>
-  <view class="kind-list">
-    <block wx:for-items="{{itemList}}" wx:key="{{item.name}}">
-      <view  wx:if="{{!item.available}}"class="kind-list-item">
-        <view id="{{item.name}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
-          <view class="kind-list-text">{{item.name}} ({{item.price +" "+item.currency}})</view>
-         
-            <image class="kind-list-img" id="{{item.name}}" src="{{item.photo[0]}}" bindtap='itemPage'></image>
-
-        </view>
-        <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
-          <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-            <view class="navigator-text">成分：{{item.recipe}}</view>
-            <view class="navigator-text">介绍：{{item.description}}</view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view>
+  <view class="doc-description">{{shopInfo.delivery}}</view>
 </view>
+
+
+<block wx:for-items="{{category}}" wx:for-item="category" wx:key="{{*category}}">
+  <view class="zan-panel-title">
+    <view class="zan-icon zan-icon-new" style="color: #ff4343;"></view>
+    {{category}}
+  </view>
+  <block wx:for-items="{{itemsByCategory[category]}}" wx:key="{{itemsByCategory[category].name}}">
+    <view class="zan-panel">
+      <view id="{{category + ',' + item.name}}" class="zan-cell" bindtap="detail">
+        <view class="zan-cell__bd {{item.available ? '' : 'zan-text-deleted'}}">{{item.name}}</view>
+        <view class="zan-cell__ft {{item.available ? '' : 'zan-text-deleted'}}">{{item.price +" "+shopInfo.currency}}</view>
+      </view>
+
+      <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+        <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+          <view class="zan-font-12">成分：{{item.recipe}}</view>
+          <view class="zan-font-12">介绍：{{item.description}}</view>
+
+          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='modify'>编辑</button>
+          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='remove'>删除</button>
+          <view style='padding: 5px;'></view>
+        </view>
+      </view>
+    </view>
+  </block>
+</block>
+
+<button class='zan-btn zan-btn--large zan-btn--primary' bindtap='create'>新添菜品
+</button>

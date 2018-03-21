@@ -1,5 +1,12 @@
 const app = getApp()
 
+var groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
+
 Page({
 
   /**
@@ -7,16 +14,18 @@ Page({
    */
   data: {
     shop: null,
+    category:[],
+    itemsByCategory: null,
     count: 0,
     amount: 0,
     items: []
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     let shopList = app.globalData.shopList
     shopList.forEach(item => {
       if (item.openid === options.openid) {
@@ -28,7 +37,8 @@ Page({
       this.setData({
         count: tempOrder.count,
         amount: tempOrder.amount,
-        items: tempOrder.items
+        items: tempOrder.items,
+
       })
     }
   },
@@ -44,7 +54,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let itemsByCategory = groupBy(this.data.shop.item, 'category')
+    this.setData({
+      itemsByCategory: itemsByCategory,
+      category: Object.keys(itemsByCategory)
+    })
+    console.log(itemsByCategory, Object.keys(itemsByCategory))
   },
 
   /**
@@ -52,7 +67,10 @@ Page({
    */
   onHide: function () {
     app.globalData.tempOrders[this.data.shop.openid] = {
-      shopOpenId: this.data.shop.openid,
+      shop: this.data.shop.openid,
+      shopname: this.data.shop.shopname,
+      shopavatar: this.data.shop.avatar,
+      currency: this.data.shop.currency,
       count: this.data.count,
       amount: this.data.amount,
       items: this.data.items
@@ -64,7 +82,10 @@ Page({
    */
   onUnload: function () {
     app.globalData.tempOrders[this.data.shop.openid] = {
-      shopOpenId: this.data.shop.openid,
+      shop: this.data.shop.openid,
+      shopname: this.data.shop.shopname,
+      shopavatar: this.data.shop.avatar,
+      currency: this.data.shop.currency,
       count: this.data.count,
       amount: this.data.amount,
       items: this.data.items
@@ -93,7 +114,8 @@ Page({
   },
 
   detail: function (e) {
-    var id = e.currentTarget.id, list = this.data.shop.item;
+    let _id = e.currentTarget.id.split(',')
+    var id = _id[1], list = this.data.itemsByCategory[_id[0]];
     for (var i = 0, len = list.length; i < len; ++i) {
       if (list[i].name == id) {
         list[i].open = !list[i].open
@@ -101,10 +123,10 @@ Page({
         list[i].open = false
       }
     }
-    let shop = this.data.shop
-    shop.item = list
+    let itemsByCategory = this.data.itemsByCategory
+    itemsByCategory[_id[0]] = list
     this.setData({
-      shop: shop
+      itemsByCategory: itemsByCategory
     });
   },
 
@@ -140,24 +162,27 @@ Page({
     }
   },
 
-  order: function(e){
-    if(this.data.amount > 0){
+  order: function (e) {
+    if (this.data.amount > 0) {
       //刷新最新order信息到app全局变量
       app.globalData.tempOrders[this.data.shop.openid] = {
-        shopOpenId: this.data.shop.openid,
+        shop: this.data.shop.openid,
+        shopname: this.data.shop.shopname,
+        shopavatar: this.data.shop.avatar,
+        currency: this.data.shop.currency,
         count: this.data.count,
         amount: this.data.amount,
-        items: this.data.items
+        items: this.data.items,
       }
 
       //进入order页面
       wx.navigateTo({
-        url: '../order/order?shopOpenId=' + this.data.shop.openid,
+        url: '../order/order?shop=' + this.data.shop.openid,
         success: function (res) { },
         fail: function (res) { },
         complete: function (res) { },
       })
     }
-    
+
   }
 })

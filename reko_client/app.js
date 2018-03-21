@@ -1,5 +1,5 @@
 const API_ENDPOINT = 'http://localhost:3000/reko/client';
-
+//const API_ENDPOINT_ORDER = 'http://localhost:3000/reko/order/client/';
 //app.js
 App({
   onLaunch: function () {
@@ -26,6 +26,7 @@ App({
             success: res => {
               this.globalData.openid = res.data.openid
               let openid = res.data.openid
+              console.log("openid:", openid)
               let that = this
               //查询客户是否存在
               wx.request({
@@ -81,28 +82,6 @@ App({
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
               console.log("userInfo:", res.userInfo)
-              let userInfo = res.userInfo
-              // 跟新client基本信息：name,country,province,city,phone,avatar
-              let that = this
-              console.log("that.openid:", that.globalData.openid)
-              wx.request({
-                url: API_ENDPOINT + "/" + that.globalData.openid,
-                method: "PUT",
-                data: {
-                  name: userInfo.nickName,
-                  country: userInfo.country,
-                  city: userInfo.city,
-                  province: userInfo.province,
-                  avatar: userInfo.avatarUrl
-                },
-                header: {
-                  'content-type': 'application/json'
-                },
-                success: function (res) {
-                  console.log("Update Client Userinfo success: code:", res.statusCode)
-                }
-              })
-
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -114,11 +93,13 @@ App({
       }
     })
   },
+  
   globalData: {
     userInfo: null,
     clientInfo: null,
     shopList: null,
     openid: "",
     tempOrders:{},
+    status: ["等待", "接受", "送出", "完成", "取消"]
   }
 })

@@ -7,71 +7,99 @@ Page({
    * 页面的初始数据
    */
   data: {
-    item: null
+    item: null,
+    categoryList: [],
+    category: "其它"
+  },
+
+  getItemInfo: function (itemName) {
+    if (app.globalData.openid) {
+      let that = this
+      wx.request({
+        url: API_ENDPOINT + "/" + app.globalData.openid,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          let shopInfo = res.data
+          let itemList = shopInfo.item
+          itemList.forEach((item) => {
+            if (item.name === itemName) {
+              that.setData({
+                item: item,
+                categoryList: shopInfo.category,
+                category: item.category
+              })
+            }
+          })
+        }
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let itemList = app.globalData.shopInfo.item
-
-    itemList.forEach((item) => {
-      if (item.name === options.name) {
-        this.setData({ item: item })
-      }
-    })
-
-    console.log(this.data.item)
+    this.getItemInfo(options.name)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    if (this.data.item) {
+      this.getItemInfo(this.data.item.name)
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
+  },
+
+  bindCategoryChange: function (e) {
+    console.log("NEW Category:", this.data.categoryList[e.detail.value])
+    this.setData({
+      category: this.data.categoryList[e.detail.value]
+    })
   },
 
   formSubmit: function (e) {
@@ -86,6 +114,7 @@ Page({
     Object.keys(e.detail.value).forEach(key => {
       newItem[key] = e.detail.value[key]
     })
+    newItem.category = this.data.category
 
     //类型修正
     newItem.price = Number(newItem.price)

@@ -7,18 +7,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    itemList: null
+    shopInfo: null,
+    itemList: null,
+    category: "其它"
   },
 
+  getShopInfo: function () {
+    if (app.globalData.openid) {
+      let that = this
+      wx.request({
+        url: API_ENDPOINT + "/" + app.globalData.openid,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          that.setData({
+            shopInfo: res.data,
+            itemList: res.data.item
+          })
+          console.log('get shopInfo:', res.data)
+        }
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let itemList = app.globalData.shopInfo.item
-    this.setData({
-      itemList: itemList
-    })
-    console.log(this.data.itemList)
+    this.getShopInfo()
   },
 
   /**
@@ -32,7 +48,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getShopInfo()
   },
 
   /**
@@ -70,11 +86,25 @@ Page({
 
   },
 
+  bindCategoryChange: function (e) {
+    console.log("NEW Category:", this.data.shopInfo.category[e.detail.value])
+    this.setData({
+      category: this.data.shopInfo.category[e.detail.value]
+    })
+  },
+
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    let newItem = e.detail.value
+
+    //更新修正
+    newItem.price = Number(newItem.price)
+    newItem.promoprice = Number(newItem.promoprice)
+    newItem.category = this.data.category
+
     let itemList = this.data.itemList
-    itemList.push(e.detail.value)
-    console.log(itemList)
+    itemList.push(newItem)
+
     let openid = app.globalData.openid
     wx.request({
       url: API_ENDPOINT + "/" + openid,
@@ -87,8 +117,7 @@ Page({
         console.log("新建一个菜品:", res.statusCode)
       }
     })
-    //updata globalData item info in ShopInfo
-    app.globalData.shopInfo.item = itemList
+
     wx.navigateBack({
       delta: 2
     })

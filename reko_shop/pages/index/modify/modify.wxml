@@ -1,53 +1,85 @@
-<view class="container">
+<form catchsubmit="formSubmit" catchreset="formReset">
 
-  <view class="page-body">
-    <form catchsubmit="formSubmit" catchreset="formReset">
-
-      <view class="page-section">
-        <view class="page-section-title">名称</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-            <view class="weui-cell__bd">
-              <input class="weui-input" name="name" value='{{item.name}}' />
-            </view>
-          </view>
+  <view class="page-section">
+    <view class="page-section-title">名称</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="name" value='{{item.name}}' />
         </view>
       </view>
-
-      <view class="page-section">
-        <view class="page-section-title">配料</view>
-        <input class="weui-input" name="recipe" value='{{item.recipe}}' />
-      </view>
-
-      <view class="page-section">
-        <view class="page-section-title">价格</view>
-        <input class="weui-input" type='number' name="price" value="{{item.price}}" />
-      </view>
-
-      <view class="page-section">
-        <view class="page-section-title">介绍</view>
-        <input class="weui-input" name="description" value='{{item.description}}' />
-      </view>
-
-      <view class="page-section page-section-gap">
-        <view class="page-section-title">可见</view>
-        <switch name="available" checked='{{item.available}}' />
-      </view>
-
-      <view class="page-section page-section-gap">
-        <view class="page-section-title">促销中</view>
-        <switch name="promo" checked='{{item.promo}}' />
-      </view>
-
-      <view class="page-section">
-        <view class="page-section-title">促销价格</view>
-        <input class="weui-input" type='number' name="promoprice" value="{{item.promoprice}}" />
-      </view>
-
-
-      <view class="btn-area">
-        <button type="primary" formType="submit">更新信息</button>
-      </view>
-    </form>
+    </view>
   </view>
-</view>
+
+  <view class="page-section">
+    <view class="page-section-title">菜品类别</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <picker bindchange="bindCategoryChange" value="{{category}}" range="{{categoryList}}">
+            <view class="weui-input">{{category}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="page-section">
+  <view class="page-section-title">配料</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="recipe" value='{{item.recipe}}' />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-section">
+    <view class="page-section-title">价格</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" type='number' name="price" value="{{item.price}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-section">
+    <view class="page-section-title">介绍</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="description" value='{{item.description}}' />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-section page-section-gap">
+    <view class="page-section-title">可见</view>
+    <switch name="available" checked='{{item.available}}' />
+  </view>
+
+  <view class="page-section page-section-gap">
+    <view class="page-section-title">促销中</view>
+    <switch name="promo" checked='{{item.promo}}' />
+  </view>
+
+  <view class="page-section">
+    <view class="page-section-title">促销价格</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" type='number' name="promoprice" value="{{item.promoprice}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-area">
+    <button type="primary" formType="submit">更新信息</button>
+  </view>
+</form>

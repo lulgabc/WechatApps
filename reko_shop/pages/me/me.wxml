@@ -1,2 +1,82 @@
-<!--me.wxml-->
-<text>me.wxml</text>
+<view class="page-body">
+
+  <form catchsubmit="formSubmit" catchreset="formReset">
+
+
+    <view class="page-section-title">店铺名称</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="shopname" value='{{shopInfo.shopname}}' />
+        </view>
+      </view>
+    </view>
+
+
+    <view class="page-section page-section-gap">
+      <view class="page-section-title">营业中</view>
+      <switch name="open" checked='{{shopInfo.open}}' />
+    </view>
+
+    <view class="page-section-title">经营特色</view>
+    <view class="textarea-wrp">
+      <textarea name="about" value="{{shopInfo.about}}" auto-focus="true" style="height: 3em" />
+    </view>
+
+    <view class="page-section-title">菜品分类（逗号隔开）</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="category" value="{{shopInfo.category}}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="page-section-title">定价货币</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="currency" value="{{shopInfo.currency}}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="page-section-title">订餐信息</view>
+    <view class="textarea-wrp">
+      <textarea name="delivery" value="{{shopInfo.delivery}}" auto-focus="true" style="height: 3em" />
+    </view>
+
+    <view class="page-section-title">店铺地址</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="address" value="{{shopInfo.address}}" />
+        </view>
+      </view>
+    </view>
+
+      <view class="page-section-title">订餐电话</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="phone" value="{{shopInfo.phone}}" />
+          </view>
+        </view>
+      </view>
+
+    <view class="page-section-title">联系人</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="contact" value="{{shopInfo.contact}}" />
+        </view>
+      </view>
+    </view>
+
+
+    <view class="btn-area">
+      <button type="primary" formType="submit">更新信息</button>
+    </view>
+  </form>
+
+</view>

@@ -1,3 +1,5 @@
+
+<view class='zan-panel-title'>我的订单</view>
 <block wx:for-items="{{dateList}}" wx:for-item="date" wx:key="{{date}}">
   <view class="zan-panel-title zan-c-red">
     <view class="zan-icon zan-icon-gift-card-pay" style="color: #ff4343;"></view>
@@ -34,7 +36,7 @@
             <view class="zan-font-12 zan-c-blue"> • {{dish.name}} ({{dish.price}} {{order.currency}})</view>
           </block>
           <view wx:if="{{order.status==0 || order.status==4}}">
-            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindtap='remove'>取消订单</button>
+            <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindtap='remove'>删除订单</button>
           </view>
           <view wx:if="{{order.status==2}}">
             <button id="{{order.id}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='finish'>完成</button>

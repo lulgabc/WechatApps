@@ -1,13 +1,13 @@
 <view class="zan-panel">
   <view class="zan-row">
     <view class="zan-col zan-col-1"></view>
-    <view class="zan-col zan-col-7">
+    <view class="zan-col zan-col-7" style='padding: 20rpx;'>
       <image class="index-logo" src="{{shopInfo.avatar}}"></image>
     </view>
-    <view class="zan-col zan-col-16">
-      <view class="index-desc">{{shopInfo.shopname}}</view>
-      <view class="index-desc">订餐电话:{{shopInfo.phone}}</view>
-      <view class="index-desc">{{shopInfo.about}}</view>
+    <view class="zan-col zan-col-16" style='padding: 20rpx;'>
+      <view >{{shopInfo.shopname}}</view>
+      <view >订餐电话:{{shopInfo.phone}}</view>
+      <view >{{shopInfo.about}}</view>
     </view>
   </view>
   <view class="doc-description">{{shopInfo.delivery}}</view>

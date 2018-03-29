@@ -10,13 +10,9 @@
       <view class="zan-cell">
         <view class="zan-cell__bd">
           <view class="zan-cell__text">{{order.clientname}}</view>
-          <view class="zan-cell__desc">{{order.amount}} {{order.currency}}/{{order.count}}件</view>
+          <view class="zan-cell__desc">{{order.amount}} {{order.currency}}/{{order.count}}件，时间：{{order.time}}</view>
         </view>
         <view class="zan-cell__ft">
-          <!--<button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" wx:if="{{order.status==0}}">{{status[order.status]}}</button>
-          <button class="zan-btn zan-btn--mini zan-btn--warn" wx:if="{{order.status==1}}">{{status[order.status]}}</button>
-          <button class="zan-btn zan-btn--mini zan-btn--danger" wx:if="{{order.status==2}}">{{status[order.status]}}</button>
-          <button class="zan-btn zan-btn--mini zan-btn--primary" wx:if="{{order.status==3}}">{{status[order.status]}}</button>-->
           <button class="zan-btn zan-btn--mini {{order.status==4 ? 'zan-btn--warn' : 'zan-btn--plain'}}" wx:if="{{order.status==4}}">{{status[4]}}</button>
           <button class="zan-btn zan-btn--mini {{order.status==0 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[0]}}</button>
           <button class="zan-btn zan-btn--mini {{order.status==1 ? 'zan-btn--primary' : 'zan-btn--plain'}}" wx:if="{{order.status!==4}}">{{status[1]}}</button>

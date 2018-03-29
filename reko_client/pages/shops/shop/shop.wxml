@@ -2,7 +2,7 @@
   <view class="zan-row">
     <view class="zan-col zan-col-1"></view>
     <view class="zan-col zan-col-7">
-      <image class="index-logo" src="{{shop.avatar}}"></image>
+      <image class="index-logo" style='padding:15rpx;' src="{{shop.avatar}}"></image>
     </view>
     <view class="zan-col zan-col-16">
       <view class="index-desc">{{shop.shopname}}</view>
@@ -14,43 +14,51 @@
 </view>
 
 
+<view class='zan-panel-title zan-' wx:if='{{groupInfo}}'>
+  <view class="zan-cell__icon zan-icon zan-icon-checked zan-c-blue" style="color:#38f;"></view>
+  跟单信息：{{groupInfo.group.shopname}} {{groupInfo.group.date}} {{groupInfo.group.steps[groupInfo.step].time}} {{groupInfo.group.steps[groupInfo.step].place}}
+  <button class="zan-btn zan-btn--mini zan-btn--warn" bindtap='cancelGroup'>取消跟单</button>
+</view>
 <view class="zan-panel" wx:if="{{items != []}}">
   <block wx:for-items="{{items}}" wx:key="{{items.name}}">
-    <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary" bindtap='remove'>{{item.name}}</button>
+    <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary" bindtap='remove'>
+      {{item.name}}
+    </button>
   </block>
-
 </view>
 
 <block wx:for-items="{{category}}" wx:for-item="category" wx:key="{{*category}}">
-  <view class="zan-panel-title">{{category}}</view>
+  <view class="zan-panel-title">
+    <view class="zan-icon zan-icon-new" style="color: #ff4343;"></view>
+    {{category}}
+  </view>
   <block wx:for-items="{{itemsByCategory[category]}}" wx:key="{{itemsByCategory[category].name}}">
     <!--<view class="zan-panel" wx:if="{{item.available}}">-->
-      <view id="{{category + ',' + item.name}}" class="zan-cell">
-        <view id="{{category + ',' + item.name}}" class="zan-cell__bd" bindtap="detail">
-          {{item.name}}
-          {{item.price +" "+shop.currency}}
-        </view>
-        <view class="zan-cell__ft">
-          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='add'>加入</button>
-          <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='remove'>去除</button>
-        </view>
+    <view id="{{category + ',' + item.name}}" class="zan-cell">
+      <view id="{{category + ',' + item.name}}" class="zan-cell__bd" bindtap="detail">
+        {{item.name}} {{item.price +" "+shop.currency}}
       </view>
+      <view class="zan-cell__ft">
+        <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='add'>加入</button>
+        <button id="{{item.name}}" class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain" bindtap='remove'>去除</button>
+      </view>
+    </view>
 
-      <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
-        <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-          <view class="zan-font-12">成分：{{item.recipe}}</view>
-          <view class="zan-font-12">介绍：{{item.description}}</view>
-          <view style='padding: 5px;'></view>
-        </view>
+    <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+      <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+        <view class="zan-font-12">成分：{{item.recipe}}</view>
+        <view class="zan-font-12">介绍：{{item.description}}</view>
+        <view style='padding: 5px;'></view>
       </view>
+    </view>
     <!--</view>-->
   </block>
 </block>
 
 <view class='bottom-bar'>
   <view class="flex-wrp" style="flex-direction:row;">
-    <view class='flex-item demo-text-1' bindtap=''> {{count}} 个</view>
-    <view class='flex-item demo-text-2' bindtap=''>{{amount}} 欧</view>
+    <view class='flex-item demo-text-1' bindtap=''> {{count}} 样</view>
+    <view class='flex-item demo-text-2' bindtap=''>{{amount}} {{shop.currency}}</view>
     <view class='flex-item demo-text-3' bindtap='order'></view>
   </view>
 </view>

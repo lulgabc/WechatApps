@@ -1,1 +1,13 @@
-/* pages/group/group.wxss */
+@import "../../dist/index.wxss";
+@import "../common/weui.wxss";
+
+.demo__item {
+  flex: 1;
+}
+.demo__icon {
+  margin: 0 auto;
+  width: 48px;
+  height: 48px;
+  background: #ddd;
+  border-radius: 4px;
+}

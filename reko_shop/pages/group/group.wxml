@@ -1,2 +1,89 @@
-<!--pages/group/group.wxml-->
-<text>pages/group/group.wxml</text>
+<button class="zan-btn zan-btn--large zan-btn--primary zan-btn--plain" wx:if="{{!show}}" bindtap='show'>
+  新建跟单</button>
+
+<view class="zan-panel" wx:if="{{show && steps !== null}}" style="padding: 10px;">
+  <block wx:for-items="{{steps}}" wx:for-item="step" wx:key="{{*step}}">
+    <button class="zan-btn zan-btn--small zan-btn--primary ">第{{step.index+1}}站</button>
+    <view class='zan-panel-title'>时间：{{step.time}}</view>
+    <view class='zan-panel-title'>地点: {{step.place}}</view>
+  </block>
+  <button class="zan-btn zan-btn--small zan-btn--primary zan-btn--plain" bindtap='publish'>发布跟单</button>
+  <button class="zan-btn zan-btn--small zan-btn--warn zan-btn--plain" bindtap='removeLast'>删除本站</button>
+</view>
+
+<view class="zan-panel" wx:if="{{show}}" style="padding: 10px;">
+  <form catchsubmit="formSubmit" catchreset="formReset">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" placeholder='选择日期...' start="2018-01-01" end="2020-01-01" bindchange="bindDateChange">
+          <view class="weui-input">{{date}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="time" value='{{t}}' placeholder='输入时间...' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="place" value='{{p}}' placeholder='输入地点...' />
+      </view>
+    </view>
+
+    <button class="zan-btn zan-btn--small zan-btn--primary zan-btn--plain" formType="submit">添加一站</button>
+    <button class="zan-btn zan-btn--small zan-btn--warn zan-btn--plain" bindtap='clear'>取消跟单</button>
+
+  </form>
+</view>
+
+<view class="zan-panel-title">开放中的跟单</view>
+
+<block wx:for-items="{{groupOrders}}" wx:for-item="group" wx:key="{{*group}}">
+  <view class="zan-panel-title zan-c-red">
+    <view class="zan-icon zan-icon-gift-card-pay " style="color: #ff4343;"></view>
+    {{group.date}}
+  </view>
+
+  <block wx:for-items="{{group.steps}}" wx:for-item="step" wx:key="{{*step}}">
+    <view class="zan-panel">
+      <view class="zan-cell">
+        <view class="zan-cell__bd">
+          <view class="zan-cell__text">时间：{{step.time}}</view>
+          <view class="zan-cell__desc">地点: {{step.place}}</view>
+        </view>
+        <view class="zan-cell__ft">
+          <button class="zan-btn zan-btn--small zan-btn--primary">
+            第{{step.index+1}}站
+          </button>
+        </view>
+      </view>
+    </view>
+    <!-- 当前站的所有订单 -->
+    <block wx:for-items="{{orderByGroup[group._id]}}" wx:for-item="order" wx:key="{{*order}}">
+
+      <view class="zan-cell" wx:if="{{order.groupstep == step.index}}">
+        <view class="zan-cell__bd">
+          <view class="zan-cell__text">{{order.clientname}}</view>
+          <view class="zan-cell__desc">{{order.amount}} {{order.currency}}/{{order.count}}件</view>
+        </view>
+        <view class="zan-cell__ft">
+          <button class="zan-btn zan-btn--mini {{order.status==4 ? 'zan-btn--warn' : 'zan-btn--plain'}}" wx:if="{{order.status==4}}">{{status[4]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==0 ? 'zan-btn--primary zan-btn--plain' : 'zan-btn--plain zan-btn--disabled'}}" wx:if="{{order.status!==4}}">{{status[0]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==1 ? 'zan-btn--primary zan-btn--plain' : 'zan-btn--plain zan-btn--disabled'}}" wx:if="{{order.status!==4}}">{{status[1]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==2 ? 'zan-btn--primary zan-btn--plain' : 'zan-btn--plain zan-btn--disabled'}}" wx:if="{{order.status!==4}}">{{status[2]}}</button>
+          <button class="zan-btn zan-btn--mini {{order.status==3 ? 'zan-btn--primary zan-btn--plain' : 'zan-btn--plain zan-btn--disabled'}}" wx:if="{{order.status!==4}}">{{status[3]}}</button>
+        </view>
+      </view>
+
+    </block>
+
+  </block>
+
+  <button id='{{group._id}}' wx:if="{{group.open}}" style='margin-left: 10px;' class="zan-btn zan-btn--small zan-btn--warn" bindtap='close'>跟单结束</button>
+
+  <button id='{{group._id}}' wx:if="{{!group.open}}" style='margin-left: 10px;' class="zan-btn zan-btn--small zan-btn--danger " bindtap='hide'>不再显示</button>
+
+</block>

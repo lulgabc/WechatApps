@@ -1,4 +1,5 @@
 @import "../../common/weui.wxss";
+@import "../../../dist/index.wxss";
 
 label {
   display: inline-block;

@@ -1,45 +1,86 @@
-<view class="weui-cells__title">卖家店铺</view>
-<view>{{shop.shopname}}</view>
-
-<view class="weui-cells__title">订单内容：</view>
-<block wx:for-items="{{order.items}}" wx:key="{{order.items.name}}">
-  <view>{{item.name}} ({{item.price}})</view>
-</block>
-<view class="line"></view>
-
-<view class="weui-cells__title">收货时间</view>
-<view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__bd">
-      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-        <view class="weui-input">{{time}}</view>
-      </picker>
-    </view>
+<view class='zan-panel'>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">卖家</view>
+    <view class="zan-cell__ft">{{shop.shopname}}</view>
   </view>
 </view>
 
-<view class="weui-cells__title">收货日期</view>
-<view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__bd">
+
+<view class="zan-panel" wx:if="{{groupInfo == null}}">
+  <view class="zan-cell">
+    <view class="zan-cell__bd">日期</view>
+    <view class="zan-cell__ft">
       <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
         <view class="weui-input">{{date}}</view>
       </picker>
     </view>
   </view>
 </view>
-<view class="page-section-title">收货地址</view>
-<view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__bd">
-      <input class="weui-input" placeholder='用户预设地址或输入新地址' name="where" bindinput='bindInputChange' />
+<view class='zan-panel' wx:else>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">日期</view>
+    <view class="zan-cell__ft">{{groupInfo.group.date}}</view>
+  </view>
+</view>
+
+<view class="zan-panel" wx:if="{{groupInfo == null}}">
+  <view class="zan-cell">
+    <view class="zan-cell__bd">时间</view>
+    <view class="zan-cell__ft">
+      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+        <view class="weui-input">{{time}}</view>
+      </picker>
     </view>
   </view>
 </view>
-<view class="line"></view>
-<view class="weui-cells__title">合计</view>
-<view>{{order.count}}样</view>
-<view class="weui-cells__title">金额</view>
-<view>{{order.amount}} {{order.currency}}</view>
+<view class='zan-panel' wx:else>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">时间</view>
+    <view class="zan-cell__ft">{{groupInfo.group.steps[groupInfo.step].time}}</view>
+  </view>
+</view>
 
-<button type="primary" bindtap="send">发送订单</button>
+
+<view class="zan-panel" wx:if="{{groupInfo == null}}">
+  <view class="zan-cell">
+    <view class="zan-cell__bd">地点</view>
+    <view class="zan-cell__ft">
+      <input class="weui-input" placeholder='输入地址' name="where" bindinput='bindInputChange' />
+    </view>
+  </view>
+</view>
+<view class='zan-panel' wx:else>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">地点</view>
+    <view class="zan-cell__ft">{{groupInfo.group.steps[groupInfo.step].place}}</view>
+  </view>
+</view>
+
+
+<view class='zan-panel'>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">合计</view>
+    <view class="zan-cell__ft">{{order.count}}样</view>
+  </view>
+</view>
+
+<view class='zan-panel'>
+  <view class="zan-cell">
+    <view class="zan-cell__bd">金额</view>
+    <view class="zan-cell__ft">{{order.amount}} {{order.currency}}</view>
+  </view>
+</view>
+
+<view class="zan-panel-title">
+  <view class="zan-cell__icon zan-icon zan-icon-checked zan-c-blue" style="color:#38f;"></view>
+  订单内容：
+</view>
+<view class='zan-panel'>
+  <block wx:for-items="{{order.items}}" wx:key="{{order.items.name}}">
+    <view class="zan-cell">
+      <view class="zan-cell__bd">• {{item.name}} ({{item.price}} ({{shop.currency}})</view>
+    </view>
+  </block>
+</view>
+
+<button class='zan-btn zan-btn--large zan-btn--primary' bindtap="send">发送订单</button>

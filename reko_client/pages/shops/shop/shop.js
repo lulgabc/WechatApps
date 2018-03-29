@@ -14,11 +14,12 @@ Page({
    */
   data: {
     shop: null,
-    category:[],
+    category: [],
     itemsByCategory: null,
     count: 0,
     amount: 0,
-    items: []
+    items: [],
+    groupInfo: null,
   },
 
   /**
@@ -60,6 +61,9 @@ Page({
       category: Object.keys(itemsByCategory)
     })
     console.log(itemsByCategory, Object.keys(itemsByCategory))
+    if (app.globalData.groupInfo) {
+      this.setData({ groupInfo: app.globalData.groupInfo })
+    }
   },
 
   /**
@@ -184,5 +188,12 @@ Page({
       })
     }
 
+  },
+
+  cancelGroup: function () {
+    app.globalData.groupInfo = null
+    this.setData({
+      groupInfo: null
+    })
   }
 })

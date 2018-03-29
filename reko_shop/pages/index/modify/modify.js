@@ -134,6 +134,9 @@ Page({
       },
       success: function (res) {
         console.log("更新一个菜品:", res.statusCode)
+        wx.showToast({
+          title: "更新成功"
+        })
       }
     })
     //刷新小程序的shopInfo

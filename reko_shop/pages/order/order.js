@@ -10,7 +10,6 @@ var groupBy = function (xs, key) {
   }, {});
 };
 
-
 Page({
 
   /**

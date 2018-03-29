@@ -93,13 +93,14 @@ App({
       }
     })
   },
-  
+
   globalData: {
     userInfo: null,
     clientInfo: null,
     shopList: null,
     openid: "",
     tempOrders:{},
-    status: ["等待", "接受", "送出", "完成", "取消"]
+    status: ["等待", "接受", "送出", "完成", "卖家取消"],
+    groupInfo: null,
   }
 })

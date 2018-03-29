@@ -1,2 +1,24 @@
-<!--pages/group/group.wxml-->
-<text>pages/group/group.wxml</text>
+<view class="zan-panel-title">开放中的跟单</view>
+
+<block wx:for-items="{{groupOrders}}" wx:for-item="group" wx:key="{{*group}}">
+  <view class="zan-panel-title zan-c-red">
+    <view class="zan-icon zan-icon-gift-card-pay " style="color: #ff4343;"></view>
+    {{group.shopname}}: {{group.date}} 
+  </view>
+
+  <block wx:for-items="{{group.steps}}" wx:for-item="step" wx:key="{{*step}}">
+    <view class="zan-panel">
+      <view class="zan-cell">
+        <view class="zan-cell__bd">
+          <view class="zan-cell__text">时间：{{step.time}}</view>
+          <view class="zan-cell__desc">地点: {{step.place}}</view>
+        </view>
+        <view class="zan-cell__ft">
+          <button id="{{group.shop + ',' + group._id + ',' + step.index}}" class="zan-btn zan-btn--small zan-btn--primary zan-btn--plain" bindtap='engage'>第{{step.index+1}}站</button>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+</block>

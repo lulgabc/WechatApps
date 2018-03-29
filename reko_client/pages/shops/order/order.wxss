@@ -1,5 +1,5 @@
 @import "../../common/weui.wxss";
-
+@import "../../../dist/index.wxss";
 .line {
   width: 100%;
   height: 1rpx;

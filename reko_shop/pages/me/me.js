@@ -110,6 +110,9 @@ Page({
       },
       success: function (res) {
         console.log("更新店铺信息:", res.statusCode)
+        wx.showToast({
+          title: "更新成功"
+        })
       }
     })
   }

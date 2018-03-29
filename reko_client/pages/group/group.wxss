@@ -1,1 +1,2 @@
-/* pages/group/group.wxss */
+@import "../../dist/index.wxss";
+@import "../common/weui.wxss";

@@ -14,6 +14,7 @@ Page({
     date: '',
     time: '12:01',
     where: null,
+    groupInfo: null,
   },
 
   /**
@@ -25,7 +26,7 @@ Page({
       if (item.openid === options.shop) {
         this.setData({
           shop: item,
-          date: date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate()
+          date: date.getUTCFullYear() + '-' + (date.getUTCMonth()+1) + '-' + date.getUTCDate()
         })
       }
     })
@@ -47,7 +48,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (app.globalData.groupInfo) {
+      this.setData({ groupInfo: app.globalData.groupInfo })
+    }
   },
 
   /**
@@ -103,15 +106,19 @@ Page({
 
   send: function () {
     let order = this.data.order
+    let groupInfo = app.globalData.groupInfo
+
     order.client = app.globalData.openid
     order.clientname = app.globalData.clientInfo.name
     order.clientavatar = app.globalData.clientInfo.avatar
     order.timestamp = Date.now()
     order.status = 0
     order.rmb = 0.0
-    order.date = this.data.date
-    order.time = this.data.time
-    order.where = this.data.where
+    order.date = groupInfo ? groupInfo.group.date : this.data.date
+    order.time = groupInfo ? groupInfo.group.steps[groupInfo.step].time : this.data.time
+    order.where = groupInfo ? groupInfo.group.steps[groupInfo.step].place : this.data.where
+    order.groupid = groupInfo ? groupInfo.group._id : ""
+    order.groupstep = groupInfo ? groupInfo.step : -1
 
     console.log(order)
 
@@ -125,6 +132,8 @@ Page({
       success: function (res) {
         console.log("Create a new order")
         console.log(res.data)
+        //清除跟单信息
+        app.globalData.groupInfo = null
       }
     })
 
